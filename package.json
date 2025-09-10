@@ -1,0 +1,17 @@
+{
+    "name": "tts-bot",
+    "version": "1.0.0",
+    "description": "bot that reads text messages in a voice channel with tts using piper",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "AshleyTheNeko",
+    "license": "ISC",
+    "dependencies": {
+        "@discordjs/opus": "^0.10.0",
+        "@discordjs/voice": "^0.19.0",
+        "@snazzah/davey": "^0.1.6",
+        "discord.js": "^14.22.1"
+    }
+}
