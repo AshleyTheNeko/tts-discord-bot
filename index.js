@@ -145,11 +145,11 @@ async function processMessage() {
 
 client.on("messageCreate", async (message) => {
   if (message.channel.id !== TEXT_CHANNEL_ID) return;
-  if (message.content == "/dégage" && connected) {
+  if (message.content == "/piepo dégage" && connected) {
     leaveVoice();
     return;
   }
-  if (message.content == "/piepo au pied" && !connected) {
+  if (message.content == "/piepo au-pied" && !connected) {
     joinVoice();
     return;
   }
