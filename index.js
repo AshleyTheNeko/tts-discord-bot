@@ -140,6 +140,10 @@ client.on("messageCreate", async (message) => {
 
   const segment = text
     .replace(/<a?:([^:\s>]+):\d+>/g, "emoji $1")
+    .replace(
+      /https?:\/\/tenor\.com\/view\/([a-zA-Z-]+)-gif-\d+/g,
+      (_, slug) => slug.replace(/-/g, " ")
+    )
     .replace(/\s+/g, " ")
     .trim()
 
