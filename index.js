@@ -151,7 +151,7 @@ client.on("messageCreate", async (message) => {
     .replace(/\s+/g, " ")
     .trim();
 
-  segment = message.author.username + "... " + segment;
+  segment = `${message.author.username} ... ${segment}`;
 
   messageQueue.push(segment);
 
