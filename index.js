@@ -1,6 +1,4 @@
-if (!process.env.NODE_ENV) return 1;
-
-require('dotenv').config({ path: [`.env.${process.env.NODE_ENV}`, '.env'] })
+require('dotenv').config({ path: ['.env', ...process.env.NODE_ENV ? [`.env.${process.env.NODE_ENV}`] : []] })
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, StreamType } = require("@discordjs/voice");
 const { spawn } = require("child_process");
