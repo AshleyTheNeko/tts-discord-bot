@@ -1,4 +1,6 @@
-require("dotenv").config();
+if (!process.env.NODE_ENV) return 1;
+
+require('dotenv').config({ path: [`.env.${process.env.NODE_ENV}`, '.env'] })
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, StreamType } = require("@discordjs/voice");
 const { spawn } = require("child_process");
@@ -10,6 +12,8 @@ const TEXT_CHANNEL_ID = process.env.TEXT_CHANNEL_ID;
 const PIPER_PATH = process.env.PIPER_PATH;
 const MODEL_PATH = process.env.MODEL_PATH;
 const SAMPLE_RATE = process.env.SAMPLE_RATE; // e.g. "16000"
+
+let connected = false
 
 const client = new Client({
   intents: [
@@ -131,6 +135,7 @@ async function processMessage() {
 
 client.on("messageCreate", async (message) => {
   if (message.channel.id !== TEXT_CHANNEL_ID) return;
+
 
   const text = message.content.trim();
   if (!text) return;
