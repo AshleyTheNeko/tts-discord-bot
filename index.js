@@ -1,14 +1,15 @@
+require("dotenv").config();
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, StreamType } = require("@discordjs/voice");
 const { spawn } = require("child_process");
 
-const TOKEN = "BOT TOKEN HERE";
-const GUILD_ID = "GUILD ID HERE";
-const VOICE_CHANNEL_ID = "VOICE CHANNEL ID HERE";
-const TEXT_CHANNEL_ID = "TEXT CHANNEL ID HERE";
-const PIPER_PATH = "PIPER PATH HERE";
-const MODEL_PATH = "MODEL PATH HERE";
-const SAMPLE_RATE = "SAMPLE RATE HERE"; // e.g., "16000"
+const TOKEN = process.env.TOKEN;
+const GUILD_ID = process.env.GUILD_ID;
+const VOICE_CHANNEL_ID = process.env.VOICE_CHANNEL_ID;
+const TEXT_CHANNEL_ID = process.env.TEXT_CHANNEL_ID;
+const PIPER_PATH = process.env.PIPER_PATH;
+const MODEL_PATH = process.env.MODEL_PATH;
+const SAMPLE_RATE = process.env.SAMPLE_RATE; // e.g. "16000"
 
 const client = new Client({
   intents: [
@@ -134,14 +135,12 @@ client.on("messageCreate", async (message) => {
   const text = message.content.trim();
   if (!text) return;
 
-  const segments = text
-    .split(/\n+/)
-    .map(s => s.trim())
-    .filter(s => s.length > 0);
+  const segment = text
+    .replace(/<a?:([^:\s>]+):\d+>/g, "emoji $1")
+    .replace(/\s+/g, " ")
+    .trim()
 
-  segments.forEach(segment => {
-    messageQueue.push(segment);
-  });
+  messageQueue.push(segment);
 
   processMessage();
 });
