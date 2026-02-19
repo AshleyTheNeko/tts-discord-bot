@@ -138,7 +138,7 @@ client.on("messageCreate", async (message) => {
   const text = message.content.trim();
   if (!text) return;
 
-  const segment = text
+  let segment = text
     .replace(/<a?:([^:\s>]+):\d+>/g, "emoji $1") // emoji processing
     .replace(
       /https?:\/\/tenor\.com\/view\/([a-zA-Z-]+)-gif-\d+/g,
