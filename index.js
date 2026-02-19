@@ -149,7 +149,9 @@ client.on("messageCreate", async (message) => {
       (_, domain, ext) => `lien vers ${domain} fichier ${ext.toLowerCase()}`
     ) // other files and links
     .replace(/\s+/g, " ")
-    .trim()
+    .trim();
+
+  segment = message.author.username + "... " + segment;
 
   messageQueue.push(segment);
 
