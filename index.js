@@ -12,6 +12,9 @@ const MODEL_PATH = process.env.MODEL_PATH;
 const SAMPLE_RATE = process.env.SAMPLE_RATE; // e.g. "16000"
 
 let connected = false
+let voiceConnection;
+let guild;
+let voiceChannel;
 
 const client = new Client({
   intents: [
@@ -83,21 +86,30 @@ piper.stdout.on("data", async (chunk) => {
   processChunk();
 });
 
-let connection;
-client.once("clientReady", async () => {
-  console.log(`\x1b[32mLogged in as ${client.user.tag}\x1b[0m`);
-
-  const guild = await client.guilds.fetch(GUILD_ID);
-  const voiceChannel = await guild.channels.fetch(VOICE_CHANNEL_ID);
-
-  connection = joinVoiceChannel({
+function joinVoice() {
+  voiceConnection = joinVoiceChannel({
     channelId: voiceChannel.id,
     guildId: guild.id,
     adapterCreator: guild.voiceAdapterCreator,
   });
+  connected = true;
 
-  connection.subscribe(player);
+  voiceConnection.subscribe(player);
   console.log("\x1b[32mIn voice channel\x1b[0m");
+}
+
+function leaveVoice() {
+  voiceConnection.destroy();
+  voiceConnection = null;
+  connected = false;
+  console.log("\x1b[32mLeft voice channel\x1b[0m");
+}
+
+client.once("clientReady", async () => {
+  console.log(`\x1b[32mLogged in as ${client.user.tag}\x1b[0m`);
+
+  guild = await client.guilds.fetch(GUILD_ID);
+  voiceChannel = await guild.channels.fetch(VOICE_CHANNEL_ID);
 });
 
 async function processMessage() {
@@ -133,7 +145,15 @@ async function processMessage() {
 
 client.on("messageCreate", async (message) => {
   if (message.channel.id !== TEXT_CHANNEL_ID) return;
-
+  if (message.content == "/dégage" && connected) {
+    leaveVoice();
+    return;
+  }
+  if (message.content == "/piepo au pied" && !connected) {
+    joinVoice();
+    return;
+  }
+  if (!connected) return;
 
   const text = message.content.trim();
   if (!text) return;
