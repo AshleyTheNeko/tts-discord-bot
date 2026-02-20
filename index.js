@@ -97,7 +97,7 @@ function joinVoice() {
 
   voiceConnection.subscribe(player);
   console.log("\x1b[32mIn voice channel\x1b[0m");
-  messageQueue.unshift("piepo a écrit: wesh alors");
+  messageQueue.unshift("piepo dit: ohayo la team, piepo-desu");
   processMessage();
 }
 
@@ -163,7 +163,7 @@ client.on("messageCreate", async (message) => {
     leaveVoice();
     return;
   }
-  if (message.content == "/piepo au-pied" && !connected) {
+  if (message.content == "/piepo au pied" && !connected) {
     joinVoice();
     return;
   }
