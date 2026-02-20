@@ -186,7 +186,7 @@ client.on("messageCreate", async (message) => {
     .trim();
 
   if (lastUser != message.author.id) {
-    segment = `${pickName(message.member.username, message.member.displayName)} a écrit: ${segment}`;
+    segment = `${pickName(message.author.username, message.member.displayName)} a écrit: ${segment}`;
     lastUser = message.author.id;
   }
 
