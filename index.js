@@ -97,6 +97,8 @@ function joinVoice() {
 
   voiceConnection.subscribe(player);
   console.log("\x1b[32mIn voice channel\x1b[0m");
+  messageQueue.unshift("piepo a écrit: wesh alors");
+  processMessage();
 }
 
 function leaveVoice() {
