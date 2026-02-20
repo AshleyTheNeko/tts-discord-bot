@@ -149,7 +149,7 @@ function pickName(username, displayName) {
   const names = [username, displayName];
 
   const digitCounts = names.map(name => (name.match(/\d/g) || []).length);
-  const minIndex = digitCounts[0] > digitCounts[1];
+  const minIndex = digitCounts[0] > digitCounts[1] ? 1 : 0;
 
   return names[minIndex];
 }
