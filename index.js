@@ -10,6 +10,7 @@ const TEXT_CHANNEL_ID = process.env.TEXT_CHANNEL_ID;
 const PIPER_PATH = process.env.PIPER_PATH;
 const MODEL_PATH = process.env.MODEL_PATH;
 const SAMPLE_RATE = process.env.SAMPLE_RATE; // e.g. "16000"
+const END_WORD = process.env.END_WORD ?? "";
 
 let connected = false
 let voiceConnection;
@@ -184,8 +185,8 @@ client.on("messageCreate", async (message) => {
     ) // other files and links
     .replace(/\s+/g, " ")
     .trim();
-  
-  segment = `${segment} piepo`
+
+  if (END_WORD) segment = `${segment} ${END_WORD}`
   if (lastUser != message.author.id) {
     segment = `${pickName(message.author.username, message.member.displayName)} a écrit: ${segment}`;
     lastUser = message.author.id;
