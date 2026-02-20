@@ -179,13 +179,13 @@ client.on("messageCreate", async (message) => {
       (_, slug) => slug.replace(/-/g, " ")
     ) // tenor gifs keyword extraction
     .replace(
-      /https?:\/\/([^\/\s]+)(?:\/\S+)?(?:\.(gif|png|jpe?g|webp|mp4|mov|html))?(\?\S*)?/gi,
+      /\bhttps?:\/\/([^\s\/]+)(?:\/\S+)?(?:\.(gif|png|jpe?g|webp|mp4|mov|html))?(\?\S*)?\b/gi,
       (_, domain, ext) => `lien vers ${domain}${ext ? ` fichier ${ext.toLowerCase()}` : ""}`
     ) // other files and links
     .replace(/\s+/g, " ")
     .trim();
   
-  segment = `${segment}. piepo.`
+  segment = `${segment} :,:,:,:, piepo-desu.`
   if (lastUser != message.author.id) {
     segment = `${pickName(message.author.username, message.member.displayName)} a écrit: ${segment}`;
     lastUser = message.author.id;
