@@ -184,7 +184,8 @@ client.on("messageCreate", async (message) => {
     ) // other files and links
     .replace(/\s+/g, " ")
     .trim();
-
+  
+  segment = `${segment}. piepo.`
   if (lastUser != message.author.id) {
     segment = `${pickName(message.author.username, message.member.displayName)} a écrit: ${segment}`;
     lastUser = message.author.id;
