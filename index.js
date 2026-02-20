@@ -15,6 +15,7 @@ let connected = false
 let voiceConnection;
 let guild;
 let voiceChannel;
+let lastUser;
 
 const client = new Client({
   intents: [
@@ -149,7 +150,7 @@ function pickName(username, displayName) {
   const names = [username, displayName];
 
   const digitCounts = names.map(name => (name.match(/\d/g) || []).length);
-  const minIndex = digitCounts[0] >= digitCounts[1] ? 1 : 0;
+  const minIndex = digitCounts[0] <= digitCounts[1] ? 0 : 1;
 
   return names[minIndex];
 }
@@ -182,7 +183,10 @@ client.on("messageCreate", async (message) => {
     .replace(/\s+/g, " ")
     .trim();
 
-  segment = `${pickName(message.author.username, message.author.displayName)} a écrit: ${segment}`;
+  if (lastUser != message.author.id) {
+    segment = `${pickName(message.author.username, message.author.displayName)} a écrit: ${segment}`;
+    lastUser = message.author.id;
+  }
 
   messageQueue.push(segment);
 
