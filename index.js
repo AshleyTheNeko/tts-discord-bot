@@ -179,7 +179,7 @@ client.on("messageCreate", async (message) => {
       (_, slug) => slug.replace(/-/g, " ")
     ) // tenor gifs keyword extraction
     .replace(
-      /https?:\/\/([^\/\s]+)\/\S+\.(gif|png|jpe?g|webp|mp4|mov|html)(\?\S*)?/gi,
+      /https?:\/\/([^\/\s]+)(?:\/\S+)?(?:\.(gif|png|jpe?g|webp|mp4|mov|html))?(\?\S*)?/gi,
       (_, domain, ext) => `lien vers ${domain}${ext ? ` fichier ${ext.toLowerCase()}` : ""}`
     ) // other files and links
     .replace(/\s+/g, " ")
