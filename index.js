@@ -143,6 +143,17 @@ async function processMessage() {
   }
 }
 
+function pickName(username, displayName) {
+  if (!displayName) return username;
+
+  const names = [username, displayName];
+
+  const digitCounts = names.map(name => (name.match(/\d/g) || []).length);
+  const minIndex = digitCounts[0] > digitCounts[1];
+
+  return names[minIndex];
+}
+
 client.on("messageCreate", async (message) => {
   if (message.channel.id !== TEXT_CHANNEL_ID) return;
   if (message.content == "/piepo dégage" && connected) {
@@ -171,7 +182,7 @@ client.on("messageCreate", async (message) => {
     .replace(/\s+/g, " ")
     .trim();
 
-  segment = `${message.author.username} a écrit: ${segment}`;
+  segment = `${pickName(message.author.username, message.author.displayName)} a écrit: ${segment}`;
 
   messageQueue.push(segment);
 
