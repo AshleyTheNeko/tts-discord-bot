@@ -147,10 +147,10 @@ async function processMessage() {
 function pickName(username, displayName) {
   if (!displayName) return username;
 
-  const names = [username, displayName];
+  const names = [displayName, username];
 
   const digitCounts = names.map(name => (name.match(/\d/g) || []).length);
-  const minIndex = digitCounts[0] <= digitCounts[1] ? 0 : 1;
+  const minIndex = digitCounts[0] >= digitCounts[1] ? 1 : 0;
 
   return names[minIndex];
 }
