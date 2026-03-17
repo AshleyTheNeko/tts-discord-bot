@@ -1,10 +1,11 @@
 {
-    "name": "tts-bot",
-    "version": "1.0.0",
-    "description": "bot that reads text messages in a voice channel with tts using piper",
+    "name": "piepo",
+    "version": "2.0.0",
+    "description": "Text to speech discord bot",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js"
+        "start": "node src/index.js",
+        "create-commands": "node src/scripts/create-commands.js"
     },
     "author": "AshleyTheNeko",
     "license": "ISC",
