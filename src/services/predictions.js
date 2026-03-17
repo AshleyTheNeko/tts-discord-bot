@@ -29,7 +29,7 @@ function startPredictionService() {
                 if (!channel) continue;
 
                 await channel.send(
-                    `Prédiction faite par <@${prediction.authorId}>:\n` +
+                    `Prédiction faite par <@${prediction.authorId}> le ` + `<t:${Math.floor(prediction.predictDate / 1000)}:F>:\n` +
                     `"${Buffer.from(prediction.text, "base64").toString("utf8")}"`
                 );
 

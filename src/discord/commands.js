@@ -122,6 +122,7 @@ const commands = [{
 
         const entry = {
             id: Math.random().toString(36).slice(2),
+            predictDate: new Date(dateStr).getTime(),
             channelId: channel.id,
             revealAt: revealTime,
             text: Buffer.from(text, "utf8").toString("base64"),
