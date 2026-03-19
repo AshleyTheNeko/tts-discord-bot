@@ -32,7 +32,7 @@ function getClient() {
         text = sanitizeMessage(text);
 
         if (lastUser != message.author.id) {
-            text = `${pickName(message.author.username, message.member.displayName)} a écrit: ${text}`;
+            text = `${pickName(message.author.username, message.author.displayName)} a écrit: ${text}`;
             lastUser = message.author.id;
         }
 
