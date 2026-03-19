@@ -4,7 +4,7 @@ const { addAndProcessAudioChunk } = require("./speak");
 const { spawn } = require("child_process");
 
 let piperInstance = null;
-const messageQueue = [];
+let messageQueue = [];
 let processingMessage = false
 
 function getPiper() {
@@ -59,4 +59,8 @@ function addToMessageQueue(message) {
     sendMessageQueueToPiper();
 }
 
-module.exports = { addToMessageQueue }
+function clearMessageQueue() {
+    messageQueue = []
+}
+
+module.exports = { addToMessageQueue, clearMessageQueue }

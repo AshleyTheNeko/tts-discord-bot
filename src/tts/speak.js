@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 const { player } = require("./player");
 const { createAudioResource, StreamType } = require("@discordjs/voice");
 
-const audioChunkQueue = [];
+let audioChunkQueue = [];
 let processingChunk = false;
 
 async function convertAndPlayChunk() {
@@ -50,6 +50,11 @@ function addAndProcessAudioChunk(chunk) {
     convertAndPlayChunk();
 }
 
+function clearAudioChunks() {
+    audioChunkQueue = []
+}
+
 module.exports = {
+    clearAudioChunks,
     addAndProcessAudioChunk
 }
